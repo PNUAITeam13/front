@@ -1,0 +1,1 @@
+export const adminRoles: string[] = ['ROLE_SUPER_ADMIN' , 'ROLE_ADMIN']

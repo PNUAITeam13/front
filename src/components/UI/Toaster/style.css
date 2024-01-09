@@ -1,0 +1,104 @@
+:root {
+    --size-border-radius: 5px;
+}
+/* common */
+.toast-container > div > div {
+    min-height: 56px;
+    position: relative;
+    padding: 0;
+    border-radius: 8px;
+}
+.toast-root {
+    color: #fff;
+    height: 100%;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: Poppins;
+    text-align: left;
+    border-radius: var(--size-border-radius);
+}
+
+.toast-root .MuiLinearProgress-root {
+    position: absolute;
+    bottom: 0;
+    left: var(--size-border-radius);
+    width: calc(100% - var(--size-border-radius) * 2);
+    height: 2px;
+}
+
+.toast-additional_text {
+    font-size: 13px;
+    font-weight: 400;
+    color: #C8C5C5;
+    line-height: 18px;
+}
+.toast-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 22px;
+}
+.toast-title div {
+    margin: 0;
+    justify-content: left;
+}
+.toast-root svg {
+    border-radius: 50%;
+}
+.toast-root div[primary], .toast-root svg {
+    box-shadow: 0 0 0 6px rgba(	48, 55, 70, 0.6);
+}
+
+@media screen and (max-width: 700px) {
+    .toast-root {
+        padding: 8px 12px;
+        max-width: 300px;
+    }
+    .toast-title {
+        font-size: 15px;
+    }
+    .toast-additional_text {
+        font-size: 12px;
+    }
+}
+
+/* success */
+.toast-success .MuiLinearProgress-root {
+    background-color: #01E17B;
+}
+.toast-success {
+    background: linear-gradient(90deg, rgba(0, 220, 81, 0.7) -64%, #242C32 27%);
+    border-bottom: 2px solid #01E17B;
+}
+
+/* error */
+.toast-error .MuiLinearProgress-root {
+    background-color: #F04349;
+}
+
+.toast-error {
+    background: linear-gradient(90deg, rgba(240, 66, 72, 0.9) -58%, #242C32 42%);
+    border-bottom: 2px solid #F04349;
+}
+
+/* warning */
+
+.toast-warning .MuiLinearProgress-root {
+    background-color: #FFD21F;
+}
+.toast-warning .toast-blank {
+    background: linear-gradient(90deg, rgba(255, 212, 38, 0.7) -86%, #242C32 45%);
+    border-bottom: 2px solid #FFD21F;
+}
+
+/* info */
+
+.toast-info .MuiLinearProgress-root {
+    background-color: #242C32;
+}
+.toast-info .toast-blank {
+    background: #242C32;
+    border-bottom: 2px solid #FFFFFF;
+}
