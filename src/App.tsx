@@ -1,26 +1,26 @@
 import {Box} from "@mui/material";
+import {useEffect, useState} from "react";
+import useAsyncWrapper from "./hooks/useAsyncWrapper";
+import TableLoading from "./components/UI/TableLoading";
+import Router from "./components/Wrappers/RouterWrapper";
 
 function App() {
 
-  // const { errorToast, successToast } = useToast()
-  //
-  // let [searchParams] = useSearchParams();
-  // const [loading, setLoading] = useState(true);
-  //
-  // const getProfile = useUserStore(state => state.getProfile);
-  //
-  // const getProfileHandler = useAsyncWrapper(getProfile);
-  //
-  // useEffect(() => {
-  //   (async () => {
-  //     const {data} = await getProfileHandler();
-  //
-  //
-  //     setLoading(false)
-  //   })()
-  //
-  //
-  // },[])
+  const [loading, setLoading] = useState(true);
+
+
+  const getProfileHandler = useAsyncWrapper(async () => {});
+
+  useEffect(() => {
+    (async () => {
+      const {data} = await getProfileHandler();
+
+
+      setLoading(false)
+    })()
+
+
+  },[])
 
 
 
@@ -33,9 +33,9 @@ function App() {
         flexDirection: 'column',
       }}
     >
-      {/*{*/}
-      {/*  loading ? <Preloader /> : <Router />*/}
-      {/*}*/}
+      {
+        loading ? <TableLoading /> : <Router />
+      }
     </Box>
   );
 }
