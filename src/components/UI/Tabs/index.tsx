@@ -2,6 +2,7 @@ import {Box, Tab} from "@mui/material";
 import {useMessageStore} from "../../../store/store";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import React from "react";
+import Form from "../../Tables";
 
 const Tabs = () => {
 
@@ -23,9 +24,15 @@ const Tabs = () => {
       </TabList>
 
 
-      <TabPanel value="alcho">Item One</TabPanel>
-      <TabPanel value="cs-go">Item Two</TabPanel>
-      <TabPanel value="mobile">Item Three</TabPanel>
+      <TabPanel value="alcho">
+        <Form/>
+      </TabPanel>
+      <TabPanel value="cs-go">
+
+      </TabPanel>
+      <TabPanel value="mobile">
+
+      </TabPanel>
     </TabContext>
 
   </Box>
