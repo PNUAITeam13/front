@@ -1,26 +1,47 @@
 import {Box} from "@mui/material";
 import {useEffect, useState} from "react";
 import useAsyncWrapper from "./hooks/useAsyncWrapper";
-import TableLoading from "./components/UI/TableLoading";
 import Router from "./components/Wrappers/RouterWrapper";
+import {useAclchoStore} from "./store/alchoStore";
+import {useMessageStore} from "./store/store";
 
 function App() {
 
-  const [loading, setLoading] = useState(true);
+
+  const currentTab = useMessageStore(state => state.currentTab);
+  const getAlchoModelDetails = useAclchoStore(state => state.getAlchoModelDetails);
+  const getMobileModelDetails = useAclchoStore(state => state.getMobileModelDetails);
+  const getCsgoModelDetails = useAclchoStore(state => state.getCsgoModelDetails);
 
 
-  const getProfileHandler = useAsyncWrapper(async () => {});
+  const getAlchoModelDetailsHandler = useAsyncWrapper(getAlchoModelDetails);
+  const getMobileModelDetailsHandler = useAsyncWrapper(getMobileModelDetails);
+  const getCsgoModelDetailsHandler = useAsyncWrapper(getCsgoModelDetails);
 
   useEffect(() => {
     (async () => {
-      const {data} = await getProfileHandler();
+      if(currentTab === 'alcho') {
+        const {data} = await getAlchoModelDetailsHandler();
 
+        return
+      } else if(currentTab === 'cs-go') {
+        const {data} = await getCsgoModelDetailsHandler();
 
-      setLoading(false)
+        return
+      } else if(currentTab === 'mobile') {
+        const {data} = await getMobileModelDetailsHandler();
+
+        return
+      } else if(currentTab === 'etc') {
+        const {data} = await getAlchoModelDetailsHandler();
+
+        return
+      }
+
     })()
 
 
-  },[])
+  },[currentTab])
 
 
 
@@ -33,9 +54,7 @@ function App() {
         flexDirection: 'column',
       }}
     >
-      {
-        loading ? <TableLoading /> : <Router />
-      }
+        <Router />
     </Box>
   );
 }

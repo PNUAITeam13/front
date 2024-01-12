@@ -30,67 +30,88 @@ const Form = () => {
     })
   }
 
-  console.log(formData)
 
   return <Box sx={{
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    maxWidth: '40vh',
+    maxWidth: '60vh',
     minWidth: '500px',
     maxHeight: 'calc(100vh - 100px)',
-    overflowY: 'auto'
+    margin: '0 auto'
   }}>
-    <Typography variant={'h4'}>
-      Form
-    </Typography>
-    {heading?.map((item, index) => {
-      if (item.type === 'multi_select') {
-        return (
-          <Autocomplete
-            multiple
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+    }}>
+      <Typography variant={'h4'}>
+        Form
+      </Typography>
+      <Button
+        variant="contained"
+        color={'success'}
+        sx={{
+          width: '200px'
+        }}
+
+      >
+        Import
+      </Button>
+    </Box>
+    <Box sx={{
+      overflowY: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+    }}>
+      {heading?.map((item, index) => {
+        if (item.type === 'multi_select') {
+          return (
+            <Autocomplete
+              multiple
+              key={item?.name}
+              options={item?.options || []}
+              getOptionLabel={(option) => option}
+              onChange={(e, val) => handleChangeSelect(val, item?.name)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="filled"
+                  name={item?.name}
+                  label={item?.displayName}
+                />
+              )}
+            />)
+        } else if (item.type === 'bool') {
+          return (<FormControlLabel
+            sx={{
+              alignItems: 'flex-start',
+              ml: 0
+            }}
             key={item?.name}
-            options={item?.options || []}
-            getOptionLabel={(option) => option}
-            onChange={(e, val) => handleChangeSelect(val, item?.name)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="filled"
-                name={item?.name}
-                label={item?.displayName}
-              />
-            )}
+            control={<Switch
+              onChange={handleChangeChecked}
+              name={item?.name}
+              checked={formData[item?.name]}
+              color="primary"
+            />}
+            label={item?.displayName}
+            labelPlacement="top"
           />)
-      } else if (item.type === 'bool') {
-        return (<FormControlLabel
-          sx={{
-            alignItems: 'flex-start',
-            ml: 0
-          }}
+
+        }
+
+        return (<TextField
           key={item?.name}
-          control={<Switch
-            onChange={handleChangeChecked}
-            name={item?.name}
-            checked={formData[item?.name]}
-            color="primary"
-          />}
+          name={item?.name}
+          type={item.type === 'int' ? 'number' : 'text'}
           label={item?.displayName}
-          labelPlacement="top"
+          value={formData[item?.name]}
+          onChange={handleChange}
+          variant="filled"
         />)
-
-      }
-
-      return (<TextField
-        key={item?.name}
-        name={item?.name}
-        type={item.type === 'int' ? 'number' : 'text'}
-        label={item?.displayName}
-        value={formData[item?.name]}
-        onChange={handleChange}
-        variant="filled"
-      />)
-    })}
+      })}
+  </Box>
     <Button
       variant="contained"
       color={'error'}

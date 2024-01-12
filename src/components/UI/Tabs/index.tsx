@@ -1,14 +1,16 @@
-import {Box, Tab} from "@mui/material";
+import {Backdrop, Box, CircularProgress, Tab} from "@mui/material";
 import {useMessageStore} from "../../../store/store";
 import {TabContext, TabList, TabPanel} from "@mui/lab";
 import React from "react";
 import Form from "../../Tables";
+import {useAclchoStore} from "../../../store/alchoStore";
 
 const Tabs = () => {
 
   const tab = useMessageStore(state => state.currentTab);
   const setTab = useMessageStore(state => state.setCurrentTab);
 
+  const loading = useAclchoStore(state => state.loading);
 
   const handleChange = (e: any, val: any) => {
     setTab(val)
@@ -17,22 +19,44 @@ const Tabs = () => {
 
   return <Box>
     <TabContext value={tab}>
-      <TabList onChange={handleChange} variant="fullWidth">
-        <Tab label="AlcoholConsumption" value="alcho" />
-        <Tab label="CS-GO_Round_Winner_Clustering" value="cs-go" />
+      <TabList
+        sx={{
+          '& .Mui-selected': {
+            color: '#fff',
+            background: '#d32f2f',
+          }
+        }}
+        TabIndicatorProps={{style: {background:'#000'}}}
+        onChange={handleChange} variant="fullWidth">
+        <Tab
+          label="AlcoholConsumption" value="alcho"
+        />
+        <Tab
+          label="CS-GO_Round_Winner_Clustering"
+          value="cs-go" />
         <Tab label="Mobile-Pricing" value="mobile" />
+        <Tab label="Mobile-Pricing" value="etc" />
       </TabList>
 
+      {loading ? <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+         open={true}>
+        <CircularProgress color="inherit" />
+      </Backdrop> : <>
+        <TabPanel value="alcho">
+          <Form/>
+        </TabPanel>
+        <TabPanel value="cs-go">
+          <Form/>
+        </TabPanel>
+        <TabPanel value="mobile">
+          <Form/>
+        </TabPanel>
+        <TabPanel value="etc">
+          <Form/>
+        </TabPanel>
+      </>}
 
-      <TabPanel value="alcho">
-        <Form/>
-      </TabPanel>
-      <TabPanel value="cs-go">
-
-      </TabPanel>
-      <TabPanel value="mobile">
-
-      </TabPanel>
     </TabContext>
 
   </Box>
