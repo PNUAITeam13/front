@@ -95,6 +95,7 @@ const Modal = () => {
           padding: '10px',
           background: item?.index % 2 ? 'transparent' : '#ccc',
         }}>
+
           <Box
             sx={{
               width: '35%',
