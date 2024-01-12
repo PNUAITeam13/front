@@ -9,6 +9,7 @@ function App() {
 
 
   const currentTab = useMessageStore(state => state.currentTab);
+  const setCurrentTab = useMessageStore(state => state.setCurrentTab);
   const getAlchoModelDetails = useAclchoStore(state => state.getAlchoModelDetails);
   const getMobileModelDetails = useAclchoStore(state => state.getMobileModelDetails);
   const getCsgoModelDetails = useAclchoStore(state => state.getCsgoModelDetails);
@@ -20,6 +21,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
+
       if(currentTab === 'alcho') {
         const {data} = await getAlchoModelDetailsHandler();
 
@@ -43,6 +45,12 @@ function App() {
 
   },[currentTab])
 
+  useEffect(() => {
+    const item = localStorage.getItem('currentTab');
+    if(item) {
+      setCurrentTab(item)
+    }
+  },[])
 
 
   return (

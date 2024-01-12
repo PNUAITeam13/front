@@ -5,6 +5,7 @@ interface IAclchoStoreState {
   data: any[];
   modelFields: any[]
   loading: boolean;
+  loadingCreate: boolean,
 }
 interface IAclchoStore  extends IAclchoStoreState{
   creteModelAlcho: (model: any) => void;
@@ -23,6 +24,7 @@ const initialState = {
   data: [],
   modelFields: [],
   loading: true,
+  loadingCreate: false,
 }
 
 
@@ -35,7 +37,16 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
     }));
   },
   creteModelAlcho: async (model) => {
-    const response = await models_api.createAlchoModel(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createAlchoModel([model]).finally(() => {
+      setTimeout(() => set((state) => ({
+        ...state,
+        loadingCreate: false
+      })), 500)
+    });;
 
     const { status, data } = response;
 
@@ -49,7 +60,20 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
     }));
   },
   createModelAlchoByFile: async (model) => {
-    const response = await models_api.createAlchoModelByFile(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createAlchoModelByFile(model).finally(() => {
+      set((state) => ({
+        ...state,
+        loadingCreate: false
+      }));
+    });
 
     const { status, data } = response;
 
@@ -67,6 +91,7 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
       ...state,
       loading: true
     }));
+
     const response = await models_api.getAlchoModelDetails().finally(() => {
       set((state) => ({
         ...state,
@@ -79,14 +104,22 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
     if (status !== 200) {
       throw new Error(data);
     }
-
     set((state) => ({
       ...state,
-      modelFields: data.data
+      modelFields: data
     }));
   },
   creteModelMobile: async (model) => {
-    const response = await models_api.createMobileoModel(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createMobileoModel([model]).finally(() => {
+      set((state) => ({
+        ...state,
+        loadingCreate: false
+      }));
+    });;
 
     const { status, data } = response;
 
@@ -100,7 +133,16 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
     }));
   },
   createModelMobileByFile: async (model) => {
-    const response = await models_api.createMobileModelByFile(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createMobileModelByFile(model).finally(() => {
+      set((state) => ({
+        ...state,
+        loadingCreate: false
+      }));
+    });;
 
     const { status, data } = response;
 
@@ -133,11 +175,20 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
 
     set((state) => ({
       ...state,
-      modelFields: data.data
+      modelFields: data
     }));
   },
   creteModelCsgo: async (model) => {
-    const response = await models_api.createCsgoModel(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createCsgoModel([model]).finally(() => {
+      set((state) => ({
+        ...state,
+        loadingCreate: false
+      }));
+    });;
 
     const { status, data } = response;
 
@@ -151,7 +202,16 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
     }));
   },
   createModelCsgoByFile: async (model) => {
-    const response = await models_api.createCsgoModelByFile(model);
+    set((state) => ({
+      ...state,
+      loadingCreate: true
+    }));
+    const response = await models_api.createCsgoModelByFile(model).finally(() => {
+      set((state) => ({
+        ...state,
+        loadingCreate: false
+      }));
+    });;
 
     const { status, data } = response;
 
@@ -184,7 +244,7 @@ export const useAclchoStore = create<IAclchoStore>((set) => ({
 
     set((state) => ({
       ...state,
-      modelFields: data.data
+      modelFields: data
     }));
   },
 

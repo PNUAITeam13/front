@@ -4,6 +4,7 @@ import {TabContext, TabList, TabPanel} from "@mui/lab";
 import React from "react";
 import Form from "../../Tables";
 import {useAclchoStore} from "../../../store/alchoStore";
+import Modal from "../Modal/indes";
 
 const Tabs = () => {
 
@@ -14,6 +15,7 @@ const Tabs = () => {
 
   const handleChange = (e: any, val: any) => {
     setTab(val)
+    localStorage.setItem('currentTab', val)
   }
 
 
@@ -22,7 +24,7 @@ const Tabs = () => {
       <TabList
         sx={{
           '& .Mui-selected': {
-            color: '#fff',
+            color: '#fff!important',
             background: '#d32f2f',
           }
         }}
@@ -58,7 +60,7 @@ const Tabs = () => {
       </>}
 
     </TabContext>
-
+    <Modal />
   </Box>
 }
 
