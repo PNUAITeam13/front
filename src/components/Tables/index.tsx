@@ -86,11 +86,11 @@ const Form = () => {
       const {data, error} = await creteModelAlchoHandler([formData]);
       isError = !!error
     } else if(currentTab === 'cs-go') {
-      const {data, error} = await creteModelMobileHandler([formData]);
+      const {data, error} = await creteModelCsgoHandler([formData]);
       isError = !!error
 
     } else if(currentTab === 'mobile') {
-      const {data, error} = await creteModelCsgoHandler([formData]);
+      const {data, error} = await creteModelMobileHandler([formData]);
       isError = !!error
 
     } else if(currentTab === 'etc') {
