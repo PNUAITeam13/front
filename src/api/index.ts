@@ -2,14 +2,14 @@ import axios from "axios";
 // import {userStoreOut} from "../storestore/userStore";
 
 export const api = axios.create({
-  withCredentials: true,
+  // withCredentials: true,
   baseURL:
     (process.env.REACT_APP_TYPE_ENVIRONMENT === "DEV"
       ? process.env.REACT_APP_DEV_BASE_API_URL
       : process.env.REACT_APP_URL) + "/api/",
-  headers: {
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   "Content-Type": "application/json",
+  // },
 });
 
 // api.interceptors.request.use(
