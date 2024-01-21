@@ -61,7 +61,7 @@ const Form = () => {
       [e.target.name]: e.target.value
     })
   }
-  const handleChangeSelect = (val: any[], field: string) => {
+  const handleChangeSelect = (val: any, field: string) => {
     setFormData({
       ...formData,
       [field]: val
@@ -137,7 +137,7 @@ const Form = () => {
 
     const objectInit = modelFields?.reduce((acc, item) => {
       if(item.type === 'multi_select') {
-        acc[item?.name] = []
+        acc[item?.name] = ''
       }
       if(item.type === 'bool') {
         acc[item?.name] = false
@@ -193,7 +193,6 @@ const Form = () => {
         if (item.type === 'multi_select') {
           return (
             <Autocomplete
-              multiple
               key={item?.name}
               options={item?.options || []}
               getOptionLabel={(option) => option as string}
