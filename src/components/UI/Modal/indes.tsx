@@ -127,7 +127,7 @@ const Modal = () => {
           <Box sx={{
             fontSize: '16px',
           }}>
-            {item["0"]}
+            {item["0"] ?? item["values"]}
           </Box>
         </Box>)}
 
