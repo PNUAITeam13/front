@@ -51,6 +51,7 @@ const Modal = () => {
     <DialogTitle sx={{
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
       fontWeight: 600,
       color:'#373737',
       borderBottom: '2px solid #373737',
