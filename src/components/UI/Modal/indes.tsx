@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Box, Dialog, DialogContent, DialogTitle, Typography} from "@mui/material";
+import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {Close} from "@mui/icons-material";
 import {useAclchoStore} from "../../../store/alchoStore";
-
+import GetAppIcon from '@mui/icons-material/GetApp';
 
 const Modal = () => {
   const [open, setOpen] = useState(false)
+
+  const data = useAclchoStore(state => state.data)
 
   const handleClose = () => {
     setOpen(false)
@@ -14,8 +16,17 @@ const Modal = () => {
     setOpen(true)
   }
 
-  const data = useAclchoStore(state => state.data)
-  console.log(data)
+  const exportData = () => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      JSON.stringify(data)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "data.json";
+
+    link.click();
+  };
+
 
   useEffect(() => {
     if (data.length > 0) {
@@ -44,7 +55,15 @@ const Modal = () => {
       color:'#373737',
       borderBottom: '2px solid #373737',
     }}>
-      Results
+      <Typography variant="h6">
+        Results <IconButton
+         onClick={exportData}
+      >
+        <GetAppIcon
+        />
+
+      </IconButton>
+      </Typography>
       <Box onClick={handleClose}>
         <Close />
       </Box>
